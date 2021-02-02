@@ -64,6 +64,9 @@ const chordsSlice = createSlice({
   name: 'chords',
   initialState: chordsAdapter.getInitialState(),
   reducers: {
+    clear: state => {
+      chordsAdapter.removeMany(state, state.ids)
+    }
   },
   extraReducers: {
     [addNewChord.fulfilled]: (state, action) => {
@@ -78,10 +81,12 @@ const chordsSlice = createSlice({
   }
 })
 
-export default chordsSlice.reducer
+export const { clear } = chordsSlice.actions
 
 export const {
   selectAll: selectAllChords,
   selectById: selectChordById,
   selectIds: selectChordIds
 } = chordsAdapter.getSelectors(state => state.chords)
+
+export default chordsSlice.reducer

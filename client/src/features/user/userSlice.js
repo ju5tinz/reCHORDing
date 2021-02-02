@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { error } from '../alert/alertSlice'
 import { generate_post_options } from '../generateRequestOptions'
+import { clear } from '../chords/chordsSlice'
 
 import Cookie from 'js-cookie'
 
@@ -17,6 +18,7 @@ export const registerUser = createAsyncThunk(
     return await handleResponse(response).then(
       (data) => {
         //localStorage.setItem("user", JSON.stringify({ token: data.user.token }))
+        thunkAPI.dispatch(clear())
         Cookie.set('username', user.username)
         history.push('/')
         return user.username
@@ -41,6 +43,7 @@ export const loginUser = createAsyncThunk(
     return await handleResponse(response).then(
       (data) => {
         //localStorage.setItem("user", JSON.stringify({ token: data.user.token }))
+        thunkAPI.dispatch(clear())
         Cookie.set('username', user.username, {expires: 1})
         history.push('/')
         return user.username
@@ -64,6 +67,7 @@ export const logoutUser = createAsyncThunk(
 
     return await handleResponse(response).then(
       (data) => {
+        thunkAPI.dispatch(clear())
         Cookie.remove('username')
         history.push('/')
         return 
