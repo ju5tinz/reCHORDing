@@ -24,8 +24,27 @@ exports.fretboard_create_post = function(req, res, next) {
   });
 }
 
-exports.fretboard_list = function(req, res, next) {
+exports.fretboard_user_chords = function(req, res, next) {
   Fretboard.find()
+    .exec(function(err, list_fretboard) {
+      if(err) {
+        return next(err)
+      }
+
+      const new_list_fretboard = list_fretboard.map(chord => {
+        let selectedFrets = chord.selectedFrets
+        let newSelectedFrets = [], size = 2
+        while(selectedFrets.length > 0) newSelectedFrets.push(selectedFrets.splice(0, size))
+        chord.selectedFrets = newSelectedFrets.slice()
+        return {...chord.toJSON(), selectedFrets:newSelectedFrets}
+      })
+
+      res.send(JSON.stringify(new_list_fretboard))
+    });
+}
+
+exports.fretboard_recent = function(req, res, next) {
+  Fretboard.find({}, {}, { sort: {'createdAt': -1}, limit: 2 })
     .exec(function(err, list_fretboard) {
       if(err) {
         return next(err)

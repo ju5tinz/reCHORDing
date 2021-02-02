@@ -10,8 +10,6 @@ export default async function handleResponse(response) {
     }
     */
 
-    console.log(response);
-
     const message = (data && data.message) || response.statusText;
 
     await Promise.reject(message)

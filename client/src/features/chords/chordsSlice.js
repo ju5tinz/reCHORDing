@@ -25,9 +25,9 @@ export const addNewChord = createAsyncThunk(
 )
 
 export const fetchUserChords = createAsyncThunk(
-  'chords/fetchChords',
+  'chords/fetchUserChords',
   async (input, thunkAPI) => {
-    const response = await fetch('/fretstore/list', 
+    const response = await fetch('/fretstore/chords', 
       generate_get_options_auth()
     )
 
@@ -42,10 +42,10 @@ export const fetchUserChords = createAsyncThunk(
   }
 )
 
-export const fetchChords = createAsyncThunk(
-  'chords/fetchChords',
+export const fetchRecentChords = createAsyncThunk(
+  'chords/fetchRecentChords',
   async (input, thunkAPI) => {
-    const response = await fetch('/fretstore/list', 
+    const response = await fetch('/fretstore/recent', 
       generate_get_options_auth()
     )
 
@@ -69,7 +69,10 @@ const chordsSlice = createSlice({
     [addNewChord.fulfilled]: (state, action) => {
       chordsAdapter.upsertOne(state, action.payload)
     },
-    [fetchChords.fulfilled]: (state, action) => {
+    [fetchRecentChords.fulfilled]: (state, action) => {
+      chordsAdapter.upsertMany(state, action.payload)
+    },
+    [fetchUserChords.fulfilled]: (state, action) => {
       chordsAdapter.upsertMany(state, action.payload)
     }
   }

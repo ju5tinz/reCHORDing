@@ -112,7 +112,7 @@ html, body, #root, .App {
   max-height: 100%;
 }
 
-.App, .content {
+.App, .user-content {
   display: flex;
 }
 
@@ -120,15 +120,18 @@ html, body, #root, .App {
   flex-direction: column;
 }
 
-.content {
+.user-content {
   overflow: hidden;
 }
 
-.content, .content > div {
+.user-content,
+.recent-chords-content, 
+.user-content > div {
   flex: 1;
 }
 
-.content > div {
+.recent-chords-content,
+.user-content > div {
   overflow: auto;
 }
 
@@ -171,7 +174,7 @@ html, body, #root, .App {
 }
 */
 
-.chord-list {
+.chord-list, .recent-chords {
   display: flex;
   flex-flow: row wrap;
 }

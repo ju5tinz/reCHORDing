@@ -8,6 +8,7 @@ import { Message } from 'semantic-ui-react'
 
 import FretboardFig from './Fretboard/Fretboard'
 import ChordsList from './ChordsList/ChordsList'
+import RecentChords from './ChordsList/RecentChords'
 import Header from './Header/Header'
 import RegisterPage from './RegisterPage/RegisterPage'
 
@@ -15,6 +16,8 @@ export function App() {
   const history = useHistory()
   const dispatch = useDispatch()
   const alert = useSelector(state => state.alert)
+  const username = useSelector(state => state.user.username)
+  const isLoggedIn = username ? true : false
 
   useEffect(() => {
     history.listen((location, action) => {
@@ -32,20 +35,25 @@ export function App() {
           <RegisterPage />
         </Route>
         <Route path='/'>
-          <div className="content">
-            <div className="left split">
-              <FretboardFig 
-                width="200"
-                height="400"
-                numStrings="6"
-                numFrets="6"
-              />
+          {isLoggedIn ?
+            <div className="user-content">
+              <div className="left split">
+                <FretboardFig 
+                  width="200"
+                  height="400"
+                  numStrings="6"
+                  numFrets="6"
+                />
+              </div>
+              
+              <div className="right split">
+                <ChordsList />
+              </div>
             </div>
-            
-            <div className="right split">
-              <ChordsList />
+            : <div className="recent-chords-content">
+                <RecentChords />
             </div>
-          </div>
+          }
         </Route>
       </Switch>
     </div>

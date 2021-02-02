@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import FretboardDisplay from '../Fretboard/FretboardDisplay'
-import { fetchUserChords, selectChordIds } from '../features/chords/chordsSlice'
+import { fetchRecentChords, selectChordIds } from '../features/chords/chordsSlice'
 
-const ChordsList = () => {
+const RecentChords = () => {
   const dispatch = useDispatch()
   const chordIds = useSelector(selectChordIds)
 
   useEffect(() => {
-    dispatch(fetchUserChords())
+    dispatch(fetchRecentChords())
   }, [dispatch])
 
   //const chords = useSelector(selectAllChords)
@@ -26,12 +26,12 @@ const ChordsList = () => {
 
   return(
     <React.Fragment>
-      <h2>Chord List:</h2>
-      <div className="chord-list">
+      <h2>Recently Added Chords:</h2>
+      <div className="recent-chords">
         {content}
       </div>
     </React.Fragment>
   )
 }
 
-export default ChordsList
+export default RecentChords

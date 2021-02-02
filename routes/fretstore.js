@@ -7,6 +7,8 @@ const fretboard_controller = require('../controllers/fretboardController');
 
 router.post('/create', fretboard_controller.fretboard_create_post);
 
-router.get('/list', checkAuth, fretboard_controller.fretboard_list);
+router.get('/recent', fretboard_controller.fretboard_recent);
+
+router.get('/chords', fretboard_controller.fretboard_user_chords);
 
 module.exports = router;
