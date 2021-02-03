@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 import FretboardDisplay from '../Fretboard/FretboardDisplay'
-import { fetchUserChords, selectChordIds } from '../features/chords/chordsSlice'
+import { selectChordIds } from '../features/chords/chordsSlice'
 
 const ChordsList = () => {
-  const dispatch = useDispatch()
   const chordIds = useSelector(selectChordIds)
-
-  useEffect(() => {
-    dispatch(fetchUserChords())
-  }, [dispatch])
 
   //const chords = useSelector(selectAllChords)
 

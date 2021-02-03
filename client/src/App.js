@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Message } from 'semantic-ui-react'
 
 import { clear } from './features/alert/alertSlice'
-
-import { Message } from 'semantic-ui-react'
+import { fetchRecentChords, fetchUserChords } from './features/chords/chordsSlice'
 
 import FretboardFig from './Fretboard/Fretboard'
 import ChordsList from './ChordsList/ChordsList'
@@ -17,7 +17,7 @@ export function App() {
   const dispatch = useDispatch()
   const alert = useSelector(state => state.alert)
   const username = useSelector(state => state.user.username)
-  const isLoggedIn = username ? true : false
+  let isLoggedIn = username ? true : false
 
   useEffect(() => {
     history.listen((location, action) => {
@@ -25,6 +25,10 @@ export function App() {
       dispatch(clear())
     })
   },[history, dispatch])
+
+  useEffect(() => {
+    isLoggedIn ? dispatch(fetchUserChords()) : dispatch(fetchRecentChords())
+  },[dispatch, isLoggedIn])
 
   return(
     <div className="App">
