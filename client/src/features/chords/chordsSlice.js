@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit'
 import { generate_get_options_auth, generate_post_options_auth } from '../generateRequestOptions'
 import handleResponse from '../helpers/handleResponse'
+import { addCurrGroup } from '../chords/chordGroupsSlice'
 
 const chordsAdapter = createEntityAdapter({
   selectId: (chord) => chord._id
@@ -9,8 +10,9 @@ const chordsAdapter = createEntityAdapter({
 export const addNewChord = createAsyncThunk(
   'chords/addNewChord',
   async (chord, thunkAPI) => {
-    const response = await fetch('/fretstore/create', 
-      generate_post_options_auth(chord)
+    const groupId = thunkAPI.getState().chordGroups.currGroup._id
+    const response = await fetch('/fretstore/add', 
+      generate_post_options_auth({chord, groupId})
     )
     
     return await handleResponse(response).then(
@@ -27,11 +29,26 @@ export const addNewChord = createAsyncThunk(
 export const fetchUserChords = createAsyncThunk(
   'chords/fetchUserChords',
   async (input, thunkAPI) => {
-    const response = await fetch('/fretstore/chords', 
+    const currGroupRes = await fetch('/chordgroup/getCurr',
       generate_get_options_auth()
     )
 
-    return await handleResponse(response).then(
+    await handleResponse(currGroupRes).then(
+      (group) => {
+        thunkAPI.dispatch(addCurrGroup(group))
+      },
+      (err) => {
+        return thunkAPI.rejectWithValue()
+      }
+    )
+
+    const groupId = thunkAPI.getState().chordGroups.currGroup._id
+
+    const chordRes = await fetch(`/fretstore/chords?groupId=${groupId}`, 
+      generate_get_options_auth()
+    )
+
+    return await handleResponse(chordRes).then(
       (data) => {
         return data
       },
@@ -64,7 +81,7 @@ const chordsSlice = createSlice({
   name: 'chords',
   initialState: chordsAdapter.getInitialState(),
   reducers: {
-    clear: state => {
+    clearChords: state => {
       chordsAdapter.removeMany(state, state.ids)
     }
   },
@@ -81,7 +98,7 @@ const chordsSlice = createSlice({
   }
 })
 
-export const { clear } = chordsSlice.actions
+export const { clearChords } = chordsSlice.actions
 
 export const {
   selectAll: selectAllChords,

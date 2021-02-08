@@ -17,13 +17,13 @@ const alertSlice = createSlice({
       state.type = 'ERROR'
       state.message = action.payload
     },
-    clear(state) {
+    clearAlert(state) {
       state.type = null
       state.message = null
     }
   }
 })
 
-export const { success, error, clear } = alertSlice.actions
+export const { success, error, clearAlert } = alertSlice.actions
 
 export default alertSlice.reducer

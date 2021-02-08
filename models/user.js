@@ -14,6 +14,7 @@ const UserSchema = new Schema(
       trim: true,
       required: true,
     },
+    currGroup: {type: Schema.Types.ObjectId, ref: 'ChordGroup'},
     chordGroups: [{type: Schema.Types.ObjectId, ref: 'ChordGroup'}]
   }
 );

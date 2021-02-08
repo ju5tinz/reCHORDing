@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { error } from '../alert/alertSlice'
 import { generate_post_options } from '../generateRequestOptions'
-import { clear } from '../chords/chordsSlice'
+import { clearChords } from '../chords/chordsSlice'
+import { addCurrGroup, clearCurrGroup } from '../chords/chordGroupsSlice'
 
 import Cookie from 'js-cookie'
 
@@ -18,8 +19,9 @@ export const registerUser = createAsyncThunk(
     return await handleResponse(response).then(
       (data) => {
         //localStorage.setItem("user", JSON.stringify({ token: data.user.token }))
-        thunkAPI.dispatch(clear())
-        Cookie.set('username', user.username)
+        thunkAPI.dispatch(clearChords())
+        thunkAPI.dispatch(addCurrGroup(data.currGroup))
+        Cookie.set('username', user.username, {expires: 1})
         history.push('/')
         return user.username
       }, 
@@ -43,7 +45,8 @@ export const loginUser = createAsyncThunk(
     return await handleResponse(response).then(
       (data) => {
         //localStorage.setItem("user", JSON.stringify({ token: data.user.token }))
-        thunkAPI.dispatch(clear())
+        thunkAPI.dispatch(clearChords())
+        thunkAPI.dispatch(addCurrGroup(data.currGroup))
         Cookie.set('username', user.username, {expires: 1})
         history.push('/')
         return user.username
@@ -67,7 +70,8 @@ export const logoutUser = createAsyncThunk(
 
     return await handleResponse(response).then(
       (data) => {
-        thunkAPI.dispatch(clear())
+        thunkAPI.dispatch(clearCurrGroup())
+        thunkAPI.dispatch(clearChords())
         Cookie.remove('username')
         history.push('/')
         return 

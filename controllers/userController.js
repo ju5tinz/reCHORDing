@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
 
 const User = require('../models/user');
+const ChordGroup = require('../models/chordgroup')
 
 exports.user_register_post = function(req, res, next) {
   //check if anyone with same username
@@ -15,38 +17,46 @@ exports.user_register_post = function(req, res, next) {
         if (err) {
           return next(err)
         } else {
+          const chordGroup = new ChordGroup({
+            name: "Scratchpad",
+            fretboards: []
+          })
+
           const user = new User({
             username: req.body.username,
-            hashedPassword: hash
+            hashedPassword: hash,
+            currGroup: mongoose.Types.ObjectId(chordGroup._id)
           })
+
+          user.chordGroups.push(mongoose.Types.ObjectId(chordGroup._id))
 
           user.save(function(err) {
             if(err) {
               return next(err)
             } else {
-              token = createToken(user)
+              chordGroup.save(function(err) {
+                if(err) {
+                  return next(err)
+                } else {
+                  token = createToken(user)
 
-              const userCookieOptions = {
-                expires: new Date(Date.now() + 1 * 24 * 60 * 60 *1000),
-                httpOnly: true,
-              }
-      
-              return res
-                .status(200)
-                .cookie('user', token, userCookieOptions)
-                .json({
-                  message: "Account Created",
-                })
-              
-              /*
-              return res.status(201).json({
-                message: "Account Created",
-                user: {
-                  _id: user._id,
-                  token: "Bearer " + token
+                  const userCookieOptions = {
+                    expires: new Date(Date.now() + 1 * 24 * 60 * 60 *1000),
+                    httpOnly: true,
+                  }
+          
+                  return res
+                    .status(200)
+                    .cookie('user', token, userCookieOptions)
+                    .json({
+                      message: "Account Created",
+                      currGroup: {
+                        name: chordGroup.name,
+                        _id: chordGroup._id,
+                      }
+                    })
                 }
               })
-              */
             }
           })
         }
@@ -63,7 +73,7 @@ exports.user_login_post = function(req, res, next) {
   User.findOne({
     username: req.body.username
   }, 
-  '_id username hashedPassword'
+  '_id username hashedPassword currGroup'
   ).then(async (user) => {
     if(!user) {
       return res.status(401).json({
@@ -80,12 +90,15 @@ exports.user_login_post = function(req, res, next) {
           httpOnly: true,
         }
 
-        return res
-          .status(200)
-          .cookie('user', token, userCookieOptions)
-          .json({
-            message: "Logged In",
-          })
+        ChordGroup.findById(user.currGroup, 'name _id', function(err, currGroup) {
+          return res
+            .status(200)
+            .cookie('user', token, userCookieOptions)
+            .json({
+              message: "Logged In",
+              currGroup
+            })
+        })
 
         /*
         return res.status(200).json({
@@ -121,7 +134,7 @@ function createToken(user) {
     },
     process.env.JWT_KEY,
     {
-      //expiresIn: "7d",
+      expiresIn: "1d",
     }
   )
 

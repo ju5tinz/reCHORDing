@@ -3,7 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Message } from 'semantic-ui-react'
 
-import { clear } from './features/alert/alertSlice'
+import { clearAlert } from './features/alert/alertSlice'
 import { fetchRecentChords, fetchUserChords } from './features/chords/chordsSlice'
 
 import FretboardFig from './Fretboard/Fretboard'
@@ -22,7 +22,7 @@ export function App() {
   useEffect(() => {
     history.listen((location, action) => {
       // clear alert on location change
-      dispatch(clear())
+      dispatch(clearAlert())
     })
   },[history, dispatch])
 
