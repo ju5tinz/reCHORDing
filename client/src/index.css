@@ -175,6 +175,7 @@ html, body, #root, .App {
 .chord-list, .recent-chords {
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-end;
 }
 
 .chord-item {
@@ -193,10 +194,13 @@ html, body, #root, .App {
 .header-name {
   display: block;
   width: 119px;
-  height: 45px;
   background-repeat: no-repeat;
   background-size: 119px 45px;
   position: absolute;
+}
+
+.header-name, .header {
+  height: 45px;
 }
 
 .header-right {
@@ -204,8 +208,17 @@ html, body, #root, .App {
   justify-content: flex-end;
 }
 
-.header-right > * {
+.header-right > :first-child {
   margin-right: 40px;
+}
+
+.recent-chords .chord-item {
+  margin-top: 1%;
+}
+
+/*Recent Chord Display names*/
+.recent-chords .chord-item > :first-child {
+  margin-right: 57%;
 }
 
 /*Centered on page*/
