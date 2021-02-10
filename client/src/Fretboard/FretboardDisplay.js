@@ -11,7 +11,7 @@ class FretboardFig extends Component {
     const {width, height, numStrings, numFrets} = this.props;
 
     this.stringOffset = 0.07 * width;
-    this.topOffset = 0.05 * height;
+    this.topOffset = 0.01 * height;
     this.botOffset = 0.01 * height;
     this.stringLoc = this.getLocations(width, this.stringOffset, this.stringOffset, numStrings);
     this.fretLoc = this.getLocations(height, this.topOffset, this.botOffset, numFrets);
@@ -115,8 +115,9 @@ class FretboardFig extends Component {
 
     return(
       <div className='chord-item'>
+        <div className="chord-item-name"> {this.state.chordName} </div>
         <div className='fretboardfig'>
-          <div className='stringNums' style={{margin: 0.05 * height + 'px 0 ' + 0.075 * height + 'px'}}>
+          <div className='stringNums' style={{margin: 0.015 * height + 'px 0 ' + 0.075 * height + 'px'}}>
             {this.getFretNums()}
           </div>
           <div className='fretboardgrid'>
@@ -162,11 +163,6 @@ class FretboardFig extends Component {
               })}
             </svg>
           </div>
-        </div>
-
-        <div>
-          Notes: {this.state.currNotes.map( note => note)}
-          Chord: {this.state.chordName}
         </div>
       </div>
     );

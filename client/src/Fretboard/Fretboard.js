@@ -41,7 +41,7 @@ class FretboardFig extends Component {
     const {width, height, numStrings, numFrets} = this.props;
 
     this.stringOffset = 0.07 * width;
-    this.topOffset = 0.05 * height;
+    this.topOffset = 0.01 * height;
     this.botOffset = 0.01 * height;
     this.stringLoc = this.getLocations(width, this.stringOffset, this.stringOffset, numStrings);
     this.fretLoc = this.getLocations(height, this.topOffset, this.botOffset, numFrets);
@@ -305,10 +305,10 @@ class FretboardFig extends Component {
 
     return(
       <div className="fretboard-input">
-        <div>
+        {/*<div>
           Notes: {this.state.currNotes.map( note => note)}
-        </div>
-        <div>
+        </div>*/}
+        <div className="name-input-container">
           <input 
             type="text" 
             value={this.state.chordName}
@@ -317,7 +317,7 @@ class FretboardFig extends Component {
         </div>
 
         <div className='fretboardfig' onMouseOut={this.onMouseOut}>
-          <div className='stringNums' style={{margin: 0.025 * height + 'px 0 ' + 0.075 * height + 'px'}}>
+          <div className='stringNums' style={{margin: -0.0125 * height + 'px 0 ' + 0.075 * height + 'px'}}>
             {this.getFretNums()}
           </div>
           <div className='fretboardgrid'>
@@ -369,13 +369,15 @@ class FretboardFig extends Component {
             </svg>
           </div>
         </div>
-
-        <button type='button' onClick={this.onAddChordClick}>
-          Add Chord
-        </button>
-        <button type='button' onClick={() => this.reset()}>
-          Reset
-        </button>
+        
+        <div className="button-container">
+          <button type='button' onClick={this.onAddChordClick}>
+            Add Chord
+          </button>
+          <button type='button' onClick={() => this.reset()}>
+            Reset
+          </button>
+        </div>
       </div>
     );
   }

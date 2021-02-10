@@ -90,6 +90,20 @@ table {
   background-color: transparent;
 }
 
+.button-container {
+  display: flex;
+}
+
+.button-container > button {
+  flex: 1;
+}
+
+.chord-item-name {
+  text-align: center;
+  font-size: 1.5em;
+  margin-right: 15%;
+}
+
 /* Remove number input spinners*/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -147,32 +161,16 @@ html, body, #root, .App {
   margin: -70px 0 0 -170px;
 }
 
-/*
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  overflow-x: hidden;
-  padding-top: 20px;
+.name-input-container {
+  text-align: center;
 }
 
-.left {
-  left: 0;
+.name-input-container > input {
+  font-size: 24px;
+  text-align: center;
+  width: 75%;
+  margin-left: 15%;
 }
-
-.right {
-  right: 0;
-  background-color: rgb(251, 255, 195);
-}
-
-.fretboard-input {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-*/
 
 .chord-list, .recent-chords {
   display: flex;
