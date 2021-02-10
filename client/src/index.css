@@ -187,10 +187,25 @@ html, body, #root, .App {
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
+  display: block;
+}
+
+.header-name {
+  display: block;
+  width: 119px;
+  height: 45px;
+  background-repeat: no-repeat;
+  background-size: 119px 45px;
+  position: absolute;
 }
 
 .header-right {
-  float: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-right > * {
+  margin-right: 40px;
 }
 
 /*Centered on page*/

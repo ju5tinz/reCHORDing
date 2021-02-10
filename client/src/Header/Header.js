@@ -6,6 +6,8 @@ import { logoutUser } from '../features/user/userSlice'
 
 import Login from '../Login/Login'
 
+import Logo from '../Icons/Logo.svg'
+
 const Header = () => {
   const username = useSelector(state => state.user.username)
   
@@ -13,7 +15,10 @@ const Header = () => {
 
   return(
     <div className='header noprint'>
-      <Link to={'/'} className='header-name'>ChordStore</Link>
+      <Link 
+        to={'/'} 
+        className='header-name'
+        style={{ backgroundImage: `url(${Logo})`}}></Link>
       { !loggedIn
         ? <div className='header-right'>
             <Login />
@@ -21,7 +26,7 @@ const Header = () => {
           </div>
 
         : <div className='header-right'>
-            {"User: " + username}
+            <div>{"Welcome, " + username}</div>
             <LogoutButton />
           </div>
       }
