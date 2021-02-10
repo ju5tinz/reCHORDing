@@ -12,7 +12,7 @@ const Header = () => {
   const loggedIn = username ? true : false
 
   return(
-    <div className='header'>
+    <div className='header noprint'>
       <Link to={'/'} className='header-name'>ChordStore</Link>
       { !loggedIn
         ? <div className='header-right'>

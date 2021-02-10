@@ -41,7 +41,7 @@ export function App() {
         <Route path='/'>
           {isLoggedIn ?
             <div className="user-content">
-              <div className="left split">
+              <div className="left split noprint">
                 <FretboardFig 
                   width="200"
                   height="400"

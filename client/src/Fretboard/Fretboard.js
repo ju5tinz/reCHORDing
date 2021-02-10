@@ -274,6 +274,7 @@ class FretboardFig extends Component {
 
   getChord() {
     const chords = Chord.detect(this.state.currNotes);
+    /*
     let chordString = '';
 
     for(const chord of chords) {
@@ -281,6 +282,8 @@ class FretboardFig extends Component {
     }
 
     return chordString;
+    */
+    return chords[0]
   }
 
   isSelected(index) {

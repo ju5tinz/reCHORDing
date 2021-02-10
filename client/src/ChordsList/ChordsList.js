@@ -21,7 +21,6 @@ const ChordsList = () => {
 
   return(
     <React.Fragment>
-      <h2>Chord List:</h2>
       <div className="chord-list">
         {content}
       </div>
