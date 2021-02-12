@@ -10,13 +10,15 @@ const RecentChords = () => {
   //const chords = useSelector(selectAllChords)
 
   const content = chordIds.map(chordId => (
-    <FretboardDisplay
-      width="100"
-      height="200"
-      numStrings="6"
-      numFrets="6"
-      chordId={chordId}
-    />
+    <div className="chord-item-ctn">
+      <FretboardDisplay
+        width="100"
+        height="200"
+        numStrings="6"
+        numFrets="6"
+        chordId={chordId}
+      />
+    </div>
   ))
 
   return(

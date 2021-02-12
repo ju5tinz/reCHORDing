@@ -48,6 +48,10 @@ table {
 }
 /* END CSS RESET */
 
+* {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+}
+
 /* Fretboard style */
 .fretboardfig {
   display: flex;
@@ -178,16 +182,27 @@ html, body, #root, .App {
   align-items: flex-end;
 }
 
-.chord-item {
+.chord-item-ctn {
   width: 25%;
-  margin-top: 5%
+  margin-bottom: 5%
 }
 
-
 /*Header*/
+.header-holder {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-container {
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+}
+
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
   display: block;
 }
 
@@ -212,13 +227,20 @@ html, body, #root, .App {
   margin-right: 40px;
 }
 
-.recent-chords .chord-item {
+.recent-chords .chord-item-ctn {
   margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.recent-chords .chord-item-ctn .chord-item {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 /*Recent Chord Display names*/
-.recent-chords .chord-item > :first-child {
-  margin-right: 57%;
+.recent-chords .chord-item-ctn .chord-item > :first-child {
+  margin-right: 15%;
 }
 
 /*Centered on page*/

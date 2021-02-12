@@ -71,7 +71,7 @@ exports.fretboard_user_chords = function(req, res, next) {
 }
 
 exports.fretboard_recent = function(req, res, next) {
-  Fretboard.find({}, {}, { sort: {'createdAt': -1}, limit: 2 },
+  Fretboard.find({}, {}, { sort: {'createdAt': -1}, limit: 8 },
     function(err, list_fretboard) {
       if(err) {
         return next(err)

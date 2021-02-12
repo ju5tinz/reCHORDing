@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Message } from 'semantic-ui-react'
 
 import { clearAlert } from './features/alert/alertSlice'
 import { fetchRecentChords, fetchUserChords } from './features/chords/chordsSlice'
@@ -33,7 +32,7 @@ export function App() {
   return(
     <div className="App">
       <Header/>
-      {alert.type ? <Message compact>{alert.message}</Message> : null}
+      {alert.type ? <div>{alert.message}</div> : null}
       <Switch>
         <Route path='/register'>
           <RegisterPage />

@@ -14,22 +14,26 @@ const Header = () => {
   const loggedIn = username ? true : false
 
   return(
-    <div className='header noprint'>
-      <Link 
-        to={'/'} 
-        className='header-name'
-        style={{ backgroundImage: `url(${Logo})`}}></Link>
-      { !loggedIn
-        ? <div className='header-right'>
-            <Login />
-            <Link to={'/register'}>Register</Link>
-          </div>
+    <div className="header-holder">
+      <div className="header-container">
+        <div className='header noprint'>
+          <Link 
+            to={'/'} 
+            className='header-name'
+            style={{ backgroundImage: `url(${Logo})`}}></Link>
+          { !loggedIn
+            ? <div className='header-right'>
+                <Login />
+                <Link to={'/register'}>Register</Link>
+              </div>
 
-        : <div className='header-right'>
-            <div>{"Welcome, " + username}</div>
-            <LogoutButton />
-          </div>
-      }
+            : <div className='header-right'>
+                <div>{"Welcome, " + username}</div>
+                <LogoutButton />
+              </div>
+          }
+        </div>
+      </div>
     </div>
   )
 }
