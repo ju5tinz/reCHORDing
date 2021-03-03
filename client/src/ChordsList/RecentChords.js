@@ -10,7 +10,7 @@ const RecentChords = () => {
   //const chords = useSelector(selectAllChords)
 
   const content = chordIds.map(chordId => (
-    <div className="chord-item-ctn">
+    <div className="chord-item-ctn" key={chordId}>
       <FretboardDisplay
         width="100"
         height="200"
