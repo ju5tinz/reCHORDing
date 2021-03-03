@@ -172,17 +172,19 @@ html, body, #root, .App {
   top: 25%;
   left: 50%;
   margin: -70px 0 0 -170px;
+  width: 18vw;
 }
 
 .name-input-container {
   text-align: center;
+  display: flex;
 }
 
 .name-input-container > input {
   font-size: 24px;
   text-align: center;
   width: 75%;
-  margin-left: 15%;
+  margin-left: 19%;
 }
 
 .chord-list, .recent-chords {
