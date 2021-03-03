@@ -37,6 +37,7 @@ class FretboardFig extends Component {
     this.onMouseClickFret = this.onMouseClickFret.bind(this);
     this.onMouseClickOpen = this.onMouseClickOpen.bind(this);
     this.onAddChordClick = this.onAddChordClick.bind(this);
+    this.reset = this.reset.bind(this);
 
     const {width, height, numStrings, numFrets} = this.props;
 
@@ -377,7 +378,7 @@ class FretboardFig extends Component {
           <button type='button' onClick={this.onAddChordClick}>
             Add Chord
           </button>
-          <button type='button' onClick={() => this.reset()}>
+          <button type='button' onClick={this.reset}>
             Reset
           </button>
         </div>
