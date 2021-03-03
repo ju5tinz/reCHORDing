@@ -31,6 +31,16 @@ exports.fretboard_add_chord = function(req, res, next) {
   
 }
 
+exports.fretboard_remove_chord = function(req, res, next) {
+  Fretboard.findByIdAndRemove(req.query.chordId, function(err, removed) {
+    if(err) {
+      return next(err)
+    }
+
+    res.send(JSON.stringify({removedId:removed._id}))
+  })
+}
+
 exports.fretboard_user_chords = function(req, res, next) {
   const groupId = req.groupId
 

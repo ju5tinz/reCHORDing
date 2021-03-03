@@ -1,16 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import FretboardDisplay from '../Fretboard/FretboardDisplay'
-import { selectChordIds } from '../features/chords/chordsSlice'
+import { selectChordIds, removeChord } from '../features/chords/chordsSlice'
 
 const ChordsList = () => {
   const chordIds = useSelector(selectChordIds)
 
-  //const chords = useSelector(selectAllChords)
+  const dispatch = useDispatch()
 
   const content = chordIds.map(chordId => (
-    <div className="chord-item-ctn">
+    <div className="chord-item-ctn" key={chordId}>
       <FretboardDisplay
         width="100"
         height="200"
@@ -18,6 +18,7 @@ const ChordsList = () => {
         numFrets="6"
         chordId={chordId}
       />
+      <button type='button' onClick={() => {dispatch(removeChord(chordId))}}>Remove</button>
     </div>
   ))
 

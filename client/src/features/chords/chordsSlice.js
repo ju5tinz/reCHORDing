@@ -26,6 +26,24 @@ export const addNewChord = createAsyncThunk(
   }
 )
 
+export const removeChord = createAsyncThunk(
+  'chords/removeChord',
+  async (chordId, thunkAPI) => {
+    const response = await fetch(`/fretstore/remove?chordId=${chordId}`,
+      generate_get_options_auth()
+    )
+
+    return await handleResponse(response).then(
+      (data) => {
+        return data.removedId;
+      },
+      (err) => {
+        return thunkAPI.rejectWithValue()
+      }
+    )
+  }
+)
+
 export const fetchUserChords = createAsyncThunk(
   'chords/fetchUserChords',
   async (input, thunkAPI) => {
@@ -88,6 +106,9 @@ const chordsSlice = createSlice({
   extraReducers: {
     [addNewChord.fulfilled]: (state, action) => {
       chordsAdapter.upsertOne(state, action.payload)
+    },
+    [removeChord.fulfilled]: (state, action) => {
+      chordsAdapter.removeOne(state, action.payload)
     },
     [fetchRecentChords.fulfilled]: (state, action) => {
       chordsAdapter.upsertMany(state, action.payload)
