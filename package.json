@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "devstart": "nodemon ./bin/www",
-    "build": "cd ./client && npm run build",
+    "build": "cd ./client && npm run install && npm run build",
     "start": "node ./bin/www"
   },
   "dependencies": {
